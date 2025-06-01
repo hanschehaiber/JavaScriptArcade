@@ -38,11 +38,18 @@ function updateCell(cell, index) {
     cell.textContent = currentPlayer;
 }
 
+//Toggles the player from one to the other
 function changePlayer() {
     currentPlayer = (currentPlayer == "X") ? "O" : "X";
     statusText.textContent = `${currentPlayer}'s turn`;
 }
 
+/**
+ * Here I check the game state against all know win conditions.
+ * Since the game check if a win condition has been met at the end of 
+ * a turn, if a win condition has been met, the winner is whose ever turn
+ * it is. 
+ */
 function checkWinner() {
     let roundWon = false;
     for (let i = 0; i < winConditions.length; i++) {
