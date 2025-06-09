@@ -17,7 +17,7 @@ let velocityX = 1;
 let velocityY = 0;
 
 /**
- * Adjust velocity based on user input only iff input indicates a change in direction
+ * Adjust velocity based on user input only if input indicates a change in direction
  */
 document.addEventListener("keydown", event => {
     if (event.key === "ArrowUp" && velocityY === 0) {
@@ -63,7 +63,7 @@ function updateGameState() {
         segment.x === nextHeadPosition.x && segment.y === nextHeadPosition.y
     );
 
-    //Respond to collition states just calculated
+    //Respond to collision states just calculated
     if (hasCollidedWithWall || hasCollidedWithSelf) {
         alert("Game Over!");
         snakeBody = [{ x: 10, y: 10 }];
@@ -81,7 +81,7 @@ function updateGameState() {
      */
     snakeBody.unshift(nextHeadPosition);
 
-    //check if the new head position provide the snake with food
+    //check if the new head position provides the snake with food
     const hasEatenFood =
         nextHeadPosition.x === foodPosition.x &&
         nextHeadPosition.y === foodPosition.y;
@@ -89,7 +89,7 @@ function updateGameState() {
     /**
      * If the snake got some food, generate a new food location
      * If the snake did not get food, we need to delete the last element in the 
-     * snake body array there is not increase in the snake's length
+     * snake body array because there is no increase in the snake's length
      */
     if (hasEatenFood) {
         foodPosition = generateRandomFood();
@@ -103,7 +103,7 @@ function renderGame() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     /** Draw Snake
-     * Iterate through the snake body and draw a square if each segment
+     * Iterate through the snake body and draw a square for each segment
      * The squares are 2 pixels smaller than the tile. 
      * In order to find the pixel position to draw, we need to convert from
      * grid coordinates to pixel position. This is done by multiplying the 
