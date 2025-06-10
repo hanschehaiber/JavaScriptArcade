@@ -74,8 +74,14 @@ function interpretMobileInputEnd(event) {
  * Adjust velocity based on user input only if input indicates a change in direction
  */
 document.addEventListener("keydown", interpretKeyboardInput);
-canvas.addEventListener('touchstart', interpretMobileInputStart);
-canvas.addEventListener('touchend', interpretMobileInputEnd);
+canvas.addEventListener('touchstart', event => {
+    event.preventDefault();
+    interpretMobileInputStart(event);
+}, { passive: false });
+canvas.addEventListener('touchend', event => {
+    event.preventDefault();
+    interpretMobileInputEnd(event);
+}, { passive: false });
 
 //Generate food at a random location
 function generateRandomFood() {
