@@ -1,4 +1,8 @@
 const canvas = document.getElementById("game");
+const size = Math.min(window.innerWidth, window.innerHeight, 400);
+canvas.width = size;
+canvas.height = size;
+
 const context = canvas.getContext("2d");
 const startBtn = document.getElementById("startBtn");
 const gameOverMessage = document.getElementById('gameOverMessage');

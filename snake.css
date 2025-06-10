@@ -21,3 +21,14 @@ canvas {
   text-align: center;
   margin-top: 20px;
 }
+#game {
+  width: 90vw;
+  height: 90vw;
+  max-width: 400px;
+  max-height: 400px;
+  display: block;
+  margin: 0 auto;
+  background: #222;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px #0003;
+}
