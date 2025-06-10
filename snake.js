@@ -1,11 +1,23 @@
 const canvas = document.getElementById("game");
 const context = canvas.getContext("2d");
+const startBtn = document.getElementById("startBtn");
 
 const tileSize = 20;
 const tilesPerRow = canvas.width / tileSize;
+let gameRunning = false;
+let gameLoopTimeout;
 
 let snakeBody = [{ x: 10, y: 10 }];
 let foodPosition = generateRandomFood();
+
+function startGame() {
+    snakeBody = [{ x: 10, y: 10 }];
+    velocityX = 1;
+    velocityY = 0;
+    foodPosition = generateRandomFood();
+    gameRunning = true;
+    gameLoop();
+}
 
 /**
  * Velocity is speed and direction
@@ -70,18 +82,7 @@ function interpretMobileInputEnd(event) {
 }
 
 
-/**
- * Adjust velocity based on user input only if input indicates a change in direction
- */
-document.addEventListener("keydown", interpretKeyboardInput);
-canvas.addEventListener('touchstart', event => {
-    event.preventDefault();
-    interpretMobileInputStart(event);
-}, { passive: false });
-canvas.addEventListener('touchend', event => {
-    event.preventDefault();
-    interpretMobileInputEnd(event);
-}, { passive: false });
+
 
 //Generate food at a random location
 function generateRandomFood() {
@@ -114,10 +115,11 @@ function updateGameState() {
     //Respond to collision states just calculated
     if (hasCollidedWithWall || hasCollidedWithSelf) {
         alert("Game Over!");
-        snakeBody = [{ x: 10, y: 10 }];
-        velocityX = 1;
-        velocityY = 0;
-        foodPosition = generateRandomFood();
+        gameRunning = false;
+        // snakeBody = [{ x: 10, y: 10 }];
+        // velocityX = 1;
+        // velocityY = 0;
+        // foodPosition = generateRandomFood();
         return;
     }
 
@@ -179,9 +181,24 @@ function renderGame() {
 }
 
 function gameLoop() {
+    if (!gameRunning) return;
     updateGameState();
     renderGame();
-    setTimeout(gameLoop, 100);
+    gameLoopTimeout = setTimeout(gameLoop, 100);
 }
 
-gameLoop();
+//Event Listeners
+document.addEventListener("keydown", interpretKeyboardInput);
+startBtn.addEventListener('click', startGame);
+
+canvas.addEventListener('touchstart', event => {
+    event.preventDefault();
+    interpretMobileInputStart(event);
+}, { passive: false });
+canvas.addEventListener('touchend', event => {
+    event.preventDefault();
+    interpretMobileInputEnd(event);
+}, { passive: false });
+
+
+// gameLoop();
