@@ -1,0 +1,23 @@
+canvas {
+  background: #111;
+  display: block;
+  margin: 40px auto;
+  border: 2px solid #ccc;
+}
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#startBtn {
+  margin-top: 20px;
+  padding: 10px 30px;
+  cursor: pointer;
+}
+#gameOverMessage {
+  display: none;
+  font-size: 2em;
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
