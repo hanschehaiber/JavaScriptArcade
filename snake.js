@@ -16,10 +16,7 @@ let foodPosition = generateRandomFood();
 let velocityX = 1;
 let velocityY = 0;
 
-/**
- * Adjust velocity based on user input only if input indicates a change in direction
- */
-document.addEventListener("keydown", event => {
+function evaluateInput(event) {
     if (event.key === "ArrowUp" && velocityY === 0) {
         velocityX = 0;
         velocityY = -1;
@@ -33,7 +30,12 @@ document.addEventListener("keydown", event => {
         velocityX = 1;
         velocityY = 0;
     }
-});
+}
+
+/**
+ * Adjust velocity based on user input only if input indicates a change in direction
+ */
+document.addEventListener("keydown", evaluateInput);
 
 //Generate food at a random location
 function generateRandomFood() {
