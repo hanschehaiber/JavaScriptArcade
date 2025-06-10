@@ -92,3 +92,8 @@ button:active {
     padding: 0.7rem 1.2rem;
   }
 }
+#backBtn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+}
