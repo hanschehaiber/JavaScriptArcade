@@ -1,6 +1,8 @@
 const canvas = document.getElementById("game");
 const context = canvas.getContext("2d");
 const startBtn = document.getElementById("startBtn");
+const gameOverMessage = document.getElementById('gameOverMessage');
+
 
 const tileSize = 20;
 const tilesPerRow = canvas.width / tileSize;
@@ -16,6 +18,7 @@ function startGame() {
     velocityY = 0;
     foodPosition = generateRandomFood();
     gameRunning = true;
+    gameOverMessage.style.display = 'none';
     gameLoop();
 }
 
@@ -81,9 +84,6 @@ function interpretMobileInputEnd(event) {
     }
 }
 
-
-
-
 //Generate food at a random location
 function generateRandomFood() {
     return {
@@ -114,12 +114,8 @@ function updateGameState() {
 
     //Respond to collision states just calculated
     if (hasCollidedWithWall || hasCollidedWithSelf) {
-        alert("Game Over!");
         gameRunning = false;
-        // snakeBody = [{ x: 10, y: 10 }];
-        // velocityX = 1;
-        // velocityY = 0;
-        // foodPosition = generateRandomFood();
+        gameOverMessage.style.display = 'block';
         return;
     }
 
@@ -199,6 +195,3 @@ canvas.addEventListener('touchend', event => {
     event.preventDefault();
     interpretMobileInputEnd(event);
 }, { passive: false });
-
-
-// gameLoop();
