@@ -7,9 +7,6 @@
   font-size: 50px;
   cursor: pointer;
 }
-body {
-  background: #f4f4f9; /* soft light gray */
-}
 
 #gameContainer {
   font-family: 'Permanent Marker', cursive;
