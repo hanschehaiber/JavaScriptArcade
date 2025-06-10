@@ -16,10 +16,10 @@ let foodPosition = generateRandomFood();
 let velocityX = 1;
 let velocityY = 0;
 
-/**
- * Adjust velocity based on user input only if input indicates a change in direction
- */
-document.addEventListener("keydown", event => {
+let touchStartX = 0;
+let touchStartY = 0;
+
+function interpretKeyboardInput(event) {
     if (event.key === "ArrowUp" && velocityY === 0) {
         velocityX = 0;
         velocityY = -1;
@@ -33,7 +33,49 @@ document.addEventListener("keydown", event => {
         velocityX = 1;
         velocityY = 0;
     }
-});
+}
+
+function interpretMobileInputStart(event) {
+    const touch = event.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+}
+function interpretMobileInputEnd(event) {
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        //Horizontal swipe
+        if (deltaX > 0 && velocityX === 0) {
+            //swipe right
+            velocityX = 1;
+            velocityY = 0;
+        } else if (deltaX < 0 && velocityX === 0) {
+            //swipe left
+            velocityX = -1;
+            velocityY = 0;
+        }
+    } else { //Vertical Swipe
+        if (deltaY > 0 && velocityY === 0) {
+            //swipe down
+            velocityX = 0;
+            velocityY = 1;
+        } else if (deltaY < 0 && velocityY === 0) {
+            //swipe up
+            velocityX = 0;
+            velocityY = -1;
+        }
+    }
+}
+
+
+/**
+ * Adjust velocity based on user input only if input indicates a change in direction
+ */
+document.addEventListener("keydown", interpretKeyboardInput);
+canvas.addEventListener('touchstart', interpretMobileInputStart);
+canvas.addEventListener('touchend', interpretMobileInputEnd);
 
 //Generate food at a random location
 function generateRandomFood() {
